@@ -10,9 +10,9 @@ export class FindUser {
     private readonly userRepository: UserRepository,
   ) {}
 
-  findByname(name: string) {
+  findByname(email: string) {
     return this.userRepository.find({
-      where: { name },
+      where: { email },
     });
   }
 

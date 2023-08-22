@@ -10,4 +10,10 @@ export class UserRepository extends Repository<User> {
   async findAll() {
     return this.find();
   }
+
+  async findByEmail(email:string){
+    return await this.find({
+      where:{email}
+    })
+  }
 }

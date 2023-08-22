@@ -4,8 +4,11 @@ import { UserId } from './userId';
 export class User {
   @PrimaryColumn()
   id: string;
-  @Column()
-  name: string;
+  @Column({ length: 50 })
+  email: string;
+  
+  @Column({ length: 50 })
+  password:string;
 
   constructor(id: UserId) {
     this.id = id?.toString(); // Convierte el UserId a string para almacenar en MySQL
