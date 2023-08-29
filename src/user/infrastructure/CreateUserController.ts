@@ -1,7 +1,12 @@
-import { Controller } from '@nestjs/common';
-//import { CreateUser } from '../application/CreateUser';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreateUser } from '../application/CreateUser';
+import { CreateUserDto } from '../domain/dto/create-user.dto';
 
-@Controller('user')
+@Controller()
 export class CreateUserController {
-  constructor() {}
+  constructor(private createUser: CreateUser) {}
+  @Post('register')
+  register(@Body() userDto: CreateUserDto) {
+    return this.createUser.createUser(userDto);
+  }
 }

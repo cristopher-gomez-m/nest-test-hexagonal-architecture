@@ -1,11 +1,14 @@
 import { Module } from "@nestjs/common";
-import { RegisterController } from "./infrastructure/RegisterController";
+import { UserRepository } from "src/user/domain/UserRepository";
+import { LoginController } from "./infrastructure/loginController";
+import { Login } from "./application/Login";
+import { ValidateUser } from "./application/ValidateUser";
 
 
 @Module({
     imports:[],
-    controllers:[RegisterController],
-    providers:[],
+    controllers:[LoginController],
+    providers:[UserRepository,Login,ValidateUser],
 
 })
 
