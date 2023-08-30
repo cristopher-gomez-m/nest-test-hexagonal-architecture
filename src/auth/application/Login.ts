@@ -7,13 +7,17 @@ import {
 import { UserRepository } from 'src/user/domain/UserRepository';
 import { LoginUserDTO } from 'src/user/domain/dto/login-user.dto';
 import { ValidateUser } from './ValidateUser';
-import { UserNotFoundError } from '../domain/UserNotFoundError';
-import { BadRequestError } from '../domain/BadRequestError';
+import { UserNotFoundError } from '../domain/Errors/UserNotFoundError';
+import { BadRequestError } from '../domain/Errors/BadRequestError';
+import { User } from 'src/user/domain/entities/user.entity';
+import { JWTPayload } from '../domain/JWTPayload';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class Login {
   constructor(
     private userRepository: UserRepository,
     private validateUser: ValidateUser,
+    private jwtService: JwtService,
   ) {}
   async login(userToValidate: LoginUserDTO) {
     const { email, password } = userToValidate;
@@ -29,5 +33,12 @@ export class Login {
       throw new BadRequestError('Password not found');
     }
     return user;
+  }
+
+  generateAccesToken(user: User) {
+    const payload: JWTPayload = { userId: user.id };
+    return {
+      acces_token: this.jwtService.sign(payload),
+    };
   }
 }
