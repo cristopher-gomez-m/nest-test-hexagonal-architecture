@@ -1,10 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { UserRepository } from 'src/user/domain/UserRepository';
+import { Injectable } from '@nestjs/common';
 import { LoginUserDTO } from 'src/user/domain/dto/login-user.dto';
 import { ValidateUser } from './ValidateUser';
 import { UserNotFoundError } from '../domain/Errors/UserNotFoundError';
@@ -15,7 +9,6 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class Login {
   constructor(
-    private userRepository: UserRepository,
     private validateUser: ValidateUser,
     private jwtService: JwtService,
   ) {}

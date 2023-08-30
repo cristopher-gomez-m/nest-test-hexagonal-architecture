@@ -1,6 +1,6 @@
-import { BadRequestException, Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
 import { Login } from "../application/Login";
-import { LoginUserDTO } from "src/user/domain/dto/login-user.dto";
+import { LoginUserDTO } from '../../user/domain/dto/login-user.dto';
 import { UserNotFoundError } from "../domain/Errors/UserNotFoundError";
 import { BadRequestError } from "../domain/Errors/BadRequestError";
 
