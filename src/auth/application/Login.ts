@@ -16,7 +16,7 @@ export class Login {
     const { email, password } = userToValidate;
     const { user } = await this.validateUser.validateEmail(email);
     if (user === null) {
-      throw new UserNotFoundError('Ese email no existe');
+      throw new UserNotFoundError('User not found');
       //throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);
       //return { message: 'asd' };
     }

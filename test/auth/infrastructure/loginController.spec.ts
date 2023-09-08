@@ -9,6 +9,7 @@ import { UserRepository } from '../../../src/user/domain/UserRepository';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
+import { BadRequestError } from '../../../src/auth/domain/Errors/BadRequestError';
 dotenv.config();
 describe('loginController', () => {
   let controller: LoginController;
@@ -57,6 +58,25 @@ describe('loginController', () => {
       expect(error).toBeInstanceOf(HttpException);
       expect(error.response).toEqual('User not found');
       expect(error.status).toEqual(HttpStatus.NOT_FOUND);
+    }
+  });
+
+  it('should throw HttpException with status 400 when BadRequestError is thrown', async () => {
+    const loginDto: LoginUserDTO = {
+      email: 'adss@b.com',
+      password: '1',
+    };
+
+    jest
+      .spyOn(loginService, 'login')
+      .mockRejectedValue(new BadRequestError('Password not found'));
+
+    try {
+      await controller.login(loginDto);
+    } catch (error) {
+      expect(error).toBeInstanceOf(HttpException);
+      expect(error.response).toEqual('Password not found');
+      expect(error.status).toEqual(HttpStatus.BAD_REQUEST);
     }
   });
 });
